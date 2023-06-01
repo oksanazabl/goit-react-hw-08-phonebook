@@ -1,16 +1,16 @@
 import css from './PhonebookForm.module.css';
 import React, { useState } from 'react';
- 
+ import { addContact } from '../../redux/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
-import { getContacts} from 'redux/contactSlice';
-import { addContact } from 'redux/contactSlice';
+ import { selectContacts } from 'redux/selectors';
+
 
 const PhonebookForm = ( ) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
 
 
   const handleSubmit = e => {

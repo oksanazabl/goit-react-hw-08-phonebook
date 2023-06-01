@@ -9,6 +9,7 @@ const PhonebookFilter = () => {
     const value = e.target.value.toLowerCase();
     dispatch(setFilter(value));
   };
+  
   return (
     <>
       <label className={css.filter}>
