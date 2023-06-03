@@ -1,9 +1,9 @@
 import css from './PhonebookContatcs.module.css';
 
-import { deleteContact } from 'redux/operations';
+import { deleteContact } from 'redux/contacts/operations';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectContacts  } from 'redux/selectors';
-import { getFilter } from 'redux/filterSlice';
+import { selectContacts  } from 'redux/contacts/selectors';
+import { getFilter } from 'redux/filter/filterSlice';
 
 const PhonebookContacts = () => {
   const dispatch = useDispatch();

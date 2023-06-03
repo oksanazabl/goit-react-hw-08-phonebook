@@ -1,33 +1,56 @@
-import { useSelector, useDispatch } from 'react-redux';
-import Container from './Container';
-import PhonebookForm from './PhonebookForm';
-import PhonebookContacts from './PhonebookContatcs';
-import PhonebookFilter from './PhonebookFilter';
-import { useEffect } from 'react';
-import { selectContacts,  selectIsLoading, selectError } from 'redux/selectors';
-import { fetchContacts } from 'redux/operations';
+import React, { useEffect, lazy } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
+import { Layout } from './Layout';
+import { PrivateRoute } from './PrivateRoute';
+import { RestrictedRoute } from './RestrictedRoute';
+import { refreshUser } from 'redux/auth/operations';
+import { useAuth } from 'hooks';
+import { fetchContacts } from 'redux/contacts/operations';
+import { selectUser } from 'redux/auth/selectors';
+
+const RegisterPage = lazy(() => import('./RegisterPage'));
+const LoginPage = lazy(() => import('./LoginPage'));
+const ContactsPage = lazy(() => import('./ContactsPage'));
 
 function App() {
-  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
- 
+  const user = useSelector(selectUser);
+  const { isLoggedIn, isRefreshing } = useAuth();
+
   useEffect(() => {
     dispatch(fetchContacts());
-  }, [dispatch]);
+    if (isLoggedIn && !isRefreshing) {
+      dispatch(refreshUser());
+    }
+  }, [dispatch, isLoggedIn, isRefreshing]);
 
   return (
-    <Container>
-      <h1>Phonebook</h1>
-      <PhonebookForm />
-      <h2>Contacts</h2>
-      {contacts.length > 1 && <PhonebookFilter />}
-       {isLoading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-   
-      <PhonebookContacts />
-    </Container>
+    <Layout>
+      <Routes>
+        {/* Public Routes */}
+        <RestrictedRoute
+          path="/register"
+          component={RegisterPage}
+          restricted={true}
+          redirectTo="/contacts"
+        />
+        <RestrictedRoute
+          path="/login"
+          component={LoginPage}
+          restricted={true}
+          redirectTo="/contacts"
+        />
+
+        {/* Private Route */}
+        <PrivateRoute
+          path="/contacts"
+          component={ContactsPage}
+          redirectTo="/login"
+          isLoggedIn={isLoggedIn}
+        />
+      </Routes>
+    </Layout>
   );
 }
 
