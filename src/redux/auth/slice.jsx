@@ -2,99 +2,43 @@ import { createSlice } from '@reduxjs/toolkit';
 import { register, logIn, logOut, refreshUser } from './operations';
 
 const initialState = {
-  user: null,
+  user: { name: null, email: null },
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
-   loading: false,
-  error: null, 
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    setUser: (state, action) => {
+   extraReducers: {
+    [register.fulfilled](state, action) {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      state.isLoggedIn = true;
+    },
+    [logIn.fulfilled](state, action) {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      state.isLoggedIn = true;
+    },
+    [logOut.fulfilled](state, action) {
+      state.user = { name: null, email: null };
+      state.token = null;
+      state.isLoggedIn = false;
+    },
+    [refreshUser.pending](state) {
+      state.isRefreshing = true;
+    },
+    [refreshUser.fulfilled](state, action) {
       state.user = action.payload;
+      state.isLoggedIn = true;
+      state.isRefreshing = false;
     },
-    setToken: (state, action) => {
-      state.token = action.payload;
-    },
-    setLoggedIn: (state, action) => {
-      state.isLoggedIn = action.payload;
-    },
-    setRefreshing: (state, action) => {
-      state.isRefreshing = action.payload;
-    },
-     setLoading: (state, action) => {
-      state.loading = action.payload;
-    },
-    setError: (state, action) => {
-      state.error = action.payload;
+    [refreshUser.rejected](state) {
+      state.isRefreshing = false;
     },
   },
 });
 
-export const { setUser, setToken, setLoggedIn, setRefreshing, setLoading, setError } =
-  authSlice.actions;
-
-export const registerUser = userData => async dispatch => {
-  dispatch(setLoading(true));
-  try {
-    const response = await register(userData);
-    const { token, user } = response.data;
-    dispatch(setUser(user));
-    dispatch(setToken(token));
-    dispatch(setError(null));
-  } catch (error) {
-    dispatch(setError(error.message));
-  } finally {
-    dispatch(setLoading(false));
-  }
-};
-
-export const loginUser = userData => async dispatch => {
-  dispatch(setLoading(true));
-  try {
-    const response = await logIn(userData);
-    const { token, user } = response.data;
-    dispatch(setUser(user));
-    dispatch(setToken(token));
-    dispatch(setError(null));
-  } catch (error) {
-    dispatch(setError(error.message));
-  } finally {
-    dispatch(setLoading(false));
-  }
-};
-
-export const logoutUser = () => async dispatch => {
-  dispatch(setLoading(true));
-  try {
-    await logOut();
-    dispatch(setUser(null));
-    dispatch(setToken(null));
-    dispatch(setError(null));
-  } catch (error) {
-    dispatch(setError(error.message));
-  } finally {
-    dispatch(setLoading(false));
-  }
-};
-
-export const refreshUserToken = () => async dispatch => {
-  dispatch(setLoading(true));
-  try {
-    const response = await refreshUser();
-    const { token, user } = response.data;
-    dispatch(setUser(user));
-    dispatch(setToken(token));
-    dispatch(setError(null));
-  } catch (error) {
-    dispatch(setError(error.message));
-  } finally {
-    dispatch(setLoading(false));
-  }
-};
-
-export default authSlice.reducer;
+export const authReducer = authSlice.reducer;

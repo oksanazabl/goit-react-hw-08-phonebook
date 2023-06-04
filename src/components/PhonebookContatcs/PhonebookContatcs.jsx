@@ -3,7 +3,7 @@ import css from './PhonebookContatcs.module.css';
 import { deleteContact } from 'redux/contacts/operations';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectContacts  } from 'redux/contacts/selectors';
-import { changeFilter } from 'redux/filter/filterSlice';
+import { changeFilter } from 'redux/contacts/filterSlice';
 
 const PhonebookContacts = () => {
   const dispatch = useDispatch();

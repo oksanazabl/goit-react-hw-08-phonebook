@@ -1,6 +1,6 @@
 import css from './PhonebookFilter.module.css';
 import { useDispatch } from 'react-redux';
-import { setFilter } from 'redux/filter/filterSlice';
+import { setFilter } from 'redux/contacts/filterSlice';
 
 const PhonebookFilter = () => {
   const dispatch = useDispatch();
