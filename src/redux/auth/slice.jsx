@@ -6,6 +6,8 @@ const initialState = {
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
+   loading: false,
+  error: null, 
 };
 
 const authSlice = createSlice({
@@ -24,10 +26,16 @@ const authSlice = createSlice({
     setRefreshing: (state, action) => {
       state.isRefreshing = action.payload;
     },
+     setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
+    setError: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
-export const { setUser, setToken, setLoggedIn, setRefreshing } =
+export const { setUser, setToken, setLoggedIn, setRefreshing, setLoading, setError } =
   authSlice.actions;
 
 export const registerUser = userData => async dispatch => {

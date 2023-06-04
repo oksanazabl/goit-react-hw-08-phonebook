@@ -5,7 +5,7 @@ import {
   selectIsRefreshing,
 } from 'redux/auth/selectors';
 
-export const useAuth = () => {
+const useAuth = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const isRefreshing = useSelector(selectIsRefreshing);
   const user = useSelector(selectUser);
@@ -16,3 +16,5 @@ export const useAuth = () => {
     user,
   };
 };
+
+export default useAuth;

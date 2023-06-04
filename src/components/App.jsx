@@ -10,8 +10,8 @@ import { fetchContacts } from 'redux/contacts/operations';
 import { selectUser } from 'redux/auth/selectors';
 
 const RegisterPage = lazy(() => import('../pages/RegisterPage/RegisterPage'));
-const LoginPage = lazy(() => import('./LoginPage/LoginPage'));
-const ContactsPage = lazy(() => import('./ContactsPage/ContactsPage'));
+const LoginPage = lazy(() => import('../pages/LoginPage/LoginPage'));
+const ContactsPage = lazy(() => import('../pages/ContactsPage/ContactsPage'));
 
 function App() {
   const dispatch = useDispatch();
