@@ -27,7 +27,7 @@ const RegistForm = () => {
           type="text"
           name="name"
           required
-          placeholder="Denys iElkin"
+          placeholder="Full NAME"
           minLength={3}
         />
       </label>
@@ -37,7 +37,7 @@ const RegistForm = () => {
           type="email"
           name="email"
           required
-          placeholder="hvoarang@gmail.com"
+          placeholder="your e-mail"
         />
       </label>
       <label>
@@ -47,7 +47,7 @@ const RegistForm = () => {
           name="password"
           minLength={7}
           required
-          placeholder="*******"
+          placeholder="curent password"
         />
       </label>
       <button type="submit">Register</button>
