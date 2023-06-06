@@ -1,5 +1,15 @@
-.layout {
+.header {
   max-width: 960px;
   margin: 0 auto;
   padding: 0 16px;
+}
+
+.page {
+  max-width: 650px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 85vh;
 }

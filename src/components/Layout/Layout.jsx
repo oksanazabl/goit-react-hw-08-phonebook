@@ -1,17 +1,23 @@
 import React from 'react';
-import  AppBar from '../AppBar/AppBar';
+import Navigation from 'components/Navigation';
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-import css from './Layout.module.css'
+import Container from 'components/Container'
+import css from './Layout.module.css';
 
 const Layout = () => {
-    return <div className={css.layout}>
-     <AppBar />
-      <Suspense fallback={null}>
-        <Outlet />
-      </Suspense>
-     
-    </div>;
+  return (
+    <Container>
+      <div className={css.header}>
+        <Navigation />
+      </div>
+      <div className={css.page}>
+        <Suspense fallback={null}>
+          <Outlet />
+        </Suspense>
+      </div>
+    </Container>
+  );
 };
 
 export default Layout;

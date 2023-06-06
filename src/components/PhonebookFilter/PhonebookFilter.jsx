@@ -1,13 +1,12 @@
 import css from './PhonebookFilter.module.css';
 import { useDispatch } from 'react-redux';
-import { setFilter } from 'redux/contacts/filterSlice';
+import { setFilterContacts } from 'redux/contacts/filterSlice';
 
 const PhonebookFilter = () => {
   const dispatch = useDispatch();
 
   const onChange = e => {
-    const value = e.target.value.toLowerCase();
-    dispatch(setFilter(value));
+   dispatch(setFilterContacts(evt.target.value));
   };
   
   return (
@@ -19,7 +18,7 @@ const PhonebookFilter = () => {
           onInput={onChange}
           type="text"
           placeholder="Search contacts by name"
-          // value={filter}
+      
         />
       </label>
     </>
