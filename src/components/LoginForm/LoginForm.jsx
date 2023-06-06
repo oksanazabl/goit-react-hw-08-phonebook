@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import css from './LoginForm.module.css';
 import { logIn } from 'redux/auth/operations';
 
-export const LoginForm = () => {
+const LoginForm = () => {
   const dispatch = useDispatch();
   const errorLogin = useSelector(state => state.error);
 
@@ -30,10 +30,19 @@ export const LoginForm = () => {
         </label>
         <label className={css.label}>
           Password
-          <input className={css.input} type="password" name="password" required />
+          <input
+            className={css.input}
+            type="password"
+            name="password"
+            required
+          />
         </label>
-        <button className={css.btn}  type="submit">Log In</button>
-      </div >
+        <button className={css.btn} type="submit">
+          Log In
+        </button>
+      </div>
     </>
   );
 };
+
+export default LoginForm;

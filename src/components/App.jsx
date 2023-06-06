@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { selectIsRefreshing } from '../redux/auth/selectors';
 import { Circles } from 'react-loader-spinner';
-import { PrivateRoute } from './PrivateRoute';
-import { RestrictedRoute } from './RestrictedRoute';
+import { PrivateRoute } from '../route/PrivateRoute';
+import { RestrictedRoute } from '../route/RestrictedRoute';
 import { refreshUser } from '../redux/auth/operations';
-import Home from '../pages/HomePage/Home';
-import Layout from './layout/Layout';
-import NotFoundPage from '../pages/NotFounPage/notPagesFound';
+import Home from '../pages/Home';
+import Layout from './Layout';
+import NotFoundPage from '../pages/NotFounPage';
 
 const RegisterPage = lazy(() => import('../pages/RegisterPage/RegisterPage'));
 const LoginPage = lazy(() => import('../pages/LoginPage/LoginPage'));
@@ -19,7 +19,7 @@ function App() {
   const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshUser());
   }, [dispatch]);
 
   return (

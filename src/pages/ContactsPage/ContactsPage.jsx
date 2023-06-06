@@ -1,15 +1,14 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Circles } from 'react-loader-spinner';
-
-import { selectContacts } from 'redux/contacts/selectors';
-import ContactList from '../../components/PhonebookContatcs/PhonebookContatcs';
-import   Filter   from 'components/filter/Filter';
-import ContactForm from 'components/form/ContactForm';
 import { selectIsLoading, selectError } from '../../redux/contacts/selectors';
+import PhonebookContatcs from '../../components/PhonebookContatcs/PhonebookContatcs';
+import PhonebookFilter from 'components/PhonebookFilter';
+import PhonebookForm from 'components/PhonebookForm';
+import { fetchContacts } from '../../redux/contacts/operations';
 
 const ContactsPage = () => {
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
@@ -17,15 +16,14 @@ const ContactsPage = () => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
-
   return (
     <div>
       <h1>Your phonebook</h1>
-      <ContactForm />
+      <PhonebookForm />
       <h2>Contacts</h2>
-      <Filter />
+      <PhonebookFilter />
       {isLoading && !error && (
-         <Circles
+        <Circles
           height="80"
           width="80"
           color="#4fa94d"
@@ -34,8 +32,8 @@ const ContactsPage = () => {
           wrapperClass=""
           visible={true}
         />
-         )}
-      <ContactList />
+      )}
+      <PhonebookContatcs />
     </div>
   );
 };

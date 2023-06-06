@@ -6,7 +6,7 @@ const PhonebookFilter = () => {
   const dispatch = useDispatch();
 
   const onChange = e => {
-   dispatch(setFilterContacts(evt.target.value));
+   dispatch(setFilterContacts(e.target.value));
   };
   
   return (

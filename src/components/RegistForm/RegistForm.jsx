@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import css from './RegistForm.module.css';
 import { register } from 'redux/auth/operations';
 
-export const RegisterForm = () => {
+const RegistForm = () => {
   const dispatch = useDispatch();
   const handleSubmit = e => {
     e.preventDefault();
@@ -20,7 +20,7 @@ export const RegisterForm = () => {
   };
 
   return (
-    <Form autoComplete="off" onSubmit={handleSubmit}>
+    <div className={css.form} autoComplete="off" onSubmit={handleSubmit}>
       <label>
         Username
         <input
@@ -51,6 +51,8 @@ export const RegisterForm = () => {
         />
       </label>
       <button type="submit">Register</button>
-    </Form>
+    </div>
   );
 };
+
+export default RegistForm;
