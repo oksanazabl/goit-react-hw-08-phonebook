@@ -25,7 +25,7 @@ const LoginForm = () => {
       {errorLogin && <div>Error login</div>}
       <div className={css.form} autoComplete="off" onSubmit={handleSubmit}>
         <label className={css.label}>
-          Email
+          E-mail
           <input className={css.input} type="email" name="email" required />
         </label>
         <label className={css.label}>
