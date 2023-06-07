@@ -1,42 +1,33 @@
-import css from './PhonebookContatcs.module.css';
-import { CiUser } from 'react-icons/ci';
-import { GrClose } from 'react-icons/gr';
+// import css from './PhonebookContatcs.module.css';
+// import { CiUser } from 'react-icons/ci';
+// import { GrClose } from 'react-icons/gr';
 import { deleteContact } from 'redux/contacts/operations';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectContacts, selectContactsFilter } from 'redux/contacts/selectors';
 
-
 const PhonebookContacts = () => {
-  const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
-  const filterValue = useSelector(selectContactsFilter);
+  const filter = useSelector(selectContactsFilter);
+  const dispatch = useDispatch();
 
-  const handleDeleteContact = id => {
-    dispatch(deleteContact(id));
-  };
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
 
-  const getVisibilityContacts = () => {
-    if (!filterValue || filterValue === '') {
-      return contacts;
-    }
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filterValue)
-    );
-  };
-
-  const filteredContacts = getVisibilityContacts();
   return (
     <ul>
       {filteredContacts.map(({ id, name, number }) => (
-        <li className={css.contact_item} key={id}>
-          <CiUser />
-          {name}: {number}
+
+        <li key={id}>
+         <span>
+              {name}: {number}
+            </span>
           <button
-            className={css.button}
+            
             type="button"
-            onClick={() => handleDeleteContact(id)}
+            onClick={() => dispatch(deleteContact(id))}
           >
-            <GrClose /> Delete Contact
+           Delete Contact
           </button>
         </li>
       ))}

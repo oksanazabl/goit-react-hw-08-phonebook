@@ -20,7 +20,7 @@ const RegistForm = () => {
   };
 
   return (
-    <div className={css.form} autoComplete="off" onSubmit={handleSubmit}>
+    <form className={css.form} autoComplete="off" onSubmit={handleSubmit}>
       <label>
         Username
         <input
@@ -51,7 +51,7 @@ const RegistForm = () => {
         />
       </label>
       <button type="submit">Register</button>
-    </div>
+    </form>
   );
 };
 
